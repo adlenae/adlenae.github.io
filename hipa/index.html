@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>FULL ASSESSMENT</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#page-top">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#user">User</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#adduser">Add User</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome!</div>
+                <div class="masthead-heading text-uppercase">GET STARTED</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="#user">Get your information here</a>
+            </div>
+        </header>
+
+       <!-- About-->
+       <section class="page-section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">About</h2>
+                <h3 class="section-subheading text-muted">What is this website?</h3>
+            </div>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="subheading">Search user</h4>
+                        </div>
+                        <div class="timeline-body"><p class="text-muted">You can search you first or last name to display specific user name.</p></div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="subheading">Add User</h4>
+                        </div>
+                        <div class="timeline-body"><p class="text-muted">You can add new user by fill in the details.</p></div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image">
+                        <h4>
+                            Thank
+                            <br />
+                            You
+                            <br />
+                            !
+                        </h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SEARCH ONE USER -->  
+    <section class="page-section bg-secondary" id="user">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Search your name</h2>
+        </div>
+
+        <hr>
+        <input type="text" id="myInput" onkeyup='tableSearch()' placeholder="NAME">
+        <table class="table" id="myTable" data-filter-control="true" data-show-search-clear-button="true" align= center>
+                 <thead>
+                     <th>Id</th>
+                     <th>Email</th>
+                     <th>First Name</th>
+                     <th>Last Name</th>
+                 </thead>
+                 <tbody id="tablebodylol">
+  
+                 </tbody>
+          </table>
+         
+        </div>
+  
+          <script>
+  
+  
+              let userId = 1;
+              let url = 'https://reqres.in/api/users'
+  
+              console.log("loading");
+  
+              axios.get(url)
+                .then(function (response) {
+                  let json = response.data;
+  
+                  let tableText = "";
+                  json.data.forEach((user) => {
+                      tableText += "<tr>";
+                      tableText += "<td>"+user.id+"</td>";
+                      tableText += "<td>"+user.email+"</td>";
+                      tableText += "<td>"+user.first_name+"</td>";
+                      tableText += "<td>"+user.last_name+"</td>";
+                      tableText += "</tr>";
+                      console.log(user);
+                  });
+  
+                  document.getElementById('tablebodylol').innerHTML = tableText;
+                })
+                .catch(function (error) {
+                  console.log(error);
+                })
+                .finally(function () {
+                  // always executed
+                });
+          
+          </script>
+  
+  <script type="application/javascript">
+    function tableSearch() {
+        let input, filter, table, tr, td, txtValue;
+  
+        //Intialising Variables
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+  
+        for (let i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+  
+    }
+  
+  </script>
+  </section>
+  
+  <!-- ADD USER --> 
+   <section class="page-section bg-light" id="adduser">
+     <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Add your details</h2>
+            <h2 class="section-subheading text-muted">Ensure correct email entered, click submit and add!</h2>
+        </div>
+    
+      <form action="https://formspree.io/f/mlezgbre" method="POST" id="my-form">
+       
+      <div class="form group">
+        <label for="idnumber">ID</label>
+        <input type="text" name="idnumber" id="idnumber">
+      </div>
+      <div class="form-group">
+        <label for="fname">FIRST NAME</label>
+        <input type="text" name="fname" id="fname">
+      </div>
+      <div class="form-group">
+        <label for="email">EMAIL</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="form-group">
+        <label for="lname">LAST NAME</label>
+        <input type="text" name="lname" id="lname">
+        <button type="submit">Submit</button>
+        <input type="button" name="button" id="btn" value="Add" onclick="AddRow()">
+     </div>
+
+
+      </form>
+  
+     </div>
+  
+    <div id="status"></div>
+  
+    <table id="show" align= center>
+              
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Email</th>
+        <th>Last Name</th>
+      </tr>
+    
+  </table>
+  
+     <script>
+          
+      var list1 = [];
+      var list2 = [];
+      var list3 = [];
+      var list4 = [];
+    
+      var n = 1;
+      var x = 0;
+    
+      function AddRow(){
+    
+        var AddRown = document.getElementById('show');
+        var NewRow = AddRown.insertRow(n);
+    
+        list1[x] = document.getElementById("idnumber").value;
+        list2[x] = document.getElementById("fname").value;
+        list3[x] = document.getElementById("email").value;
+        list4[x] = document.getElementById("lname").value;
+    
+        var cel1 = NewRow.insertCell(0);
+        var cel2 = NewRow.insertCell(1);
+        var cel3 = NewRow.insertCell(2);
+        var cel4 = NewRow.insertCell(3);
+    
+        cel1.innerHTML = list1[x];
+        cel2.innerHTML = list2[x];
+        cel3.innerHTML = list3[x];
+        cel4.innerHTML = list4[x];
+    
+        n++;
+        x++;
+      }
+  
+    </script>
+  </section>
+
+ 
+
+         <!-- Contact-->
+        <section class="page-section bg-dark" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contact</h2>
+                    <h2 class="section-subheading text-muted">For any enquiry, fill the form with your first name, last name, email and message. Then hit SUBMIT</h2>
+                </div>
+                <!-- Contact form - formspree-->
+                
+                    <div class="container">
+                      <form action="https://formspree.io/f/xwkyvljw" method="POST" id="my-form">
+                  
+                        <div class="form-group">
+                          <label for="firstName"> First Name</label>
+                          <input type="text" id="firstName" name="firstName">
+                        </div>
+                  
+                        <div class="form-group">
+                          <label for="latsName">Last Name</label>
+                          <input type="text" id="lastName" name="lastName">
+                        </div>
+                  
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" id="email" name="email">
+                        </div>
+                  
+                        <div class="form-group">
+                          <label for="message">Message</label>
+                          <textarea name="message" id="message" cols="115" rows="6"></textarea>
+                        </div>
+                  
+                        <button type="submit">Submit</button>
+                      </form>
+                    </div>
+                    <div id="status"></div>
+        </section>
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 text-lg-start">Copyright &copy; adlena.e @2022</div>
+                    <div class="col-lg-3 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/adlenaeliya"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/adlena.e.mazli"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/adlenaeliya/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
